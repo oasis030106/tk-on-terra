@@ -525,7 +525,18 @@ const closeMobilePrompt = () => {
 };
 
 if (mobilePromptDismiss) {
-  mobilePromptDismiss.addEventListener('click', closeMobilePrompt);
+  mobilePromptDismiss.addEventListener('click', (event) => {
+    event.preventDefault();
+    closeMobilePrompt();
+  });
+}
+
+if (mobilePromptRoot) {
+  mobilePromptRoot.addEventListener('click', (event) => {
+    if (event.target === mobilePromptRoot) {
+      closeMobilePrompt();
+    }
+  });
 }
 
 const maybeShowMobilePrompt = () => {
