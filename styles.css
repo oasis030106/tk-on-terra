@@ -373,23 +373,6 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   transform: scale(1.05);
 }
 
-.modal__header {
-  margin-bottom: 20px;
-  flex-shrink: 0;
-}
-
-.modal__title {
-  margin: 0 0 8px;
-  font-size: 1.8rem;
-  font-weight: 600;
-}
-
-.modal__subtitle {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 1rem;
-}
-
 .modal__viewer {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
