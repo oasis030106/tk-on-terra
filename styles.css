@@ -423,8 +423,8 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   grid-column: 2;
   grid-row: 1;
   position: relative;
-  border-radius: var(--radius-md);
-  overflow: hidden;
+  border-radius: 0;
+  overflow: visible;
   background: rgba(7, 10, 24, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
