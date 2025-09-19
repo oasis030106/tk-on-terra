@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -38,21 +38,11 @@
         <button class="modal__nav modal__nav--prev" id="modalPrev" aria-label="上一页">‹</button>
         <div class="modal__stage">
           <img id="modalImage" alt="" />
-          <div class="modal__page-indicator" id="modalPageIndicator"></div>
         </div>
+        <div class="modal__page-indicator" id="modalPageIndicator"></div>
         <button class="modal__nav modal__nav--next" id="modalNext" aria-label="下一页">›</button>
       </div>
       <div class="modal__thumbnails" id="modalThumbnails"></div>
-    </div>
-  </div>
-
-  <div class="mobile-prompt" id="mobilePrompt" hidden>
-    <div class="mobile-prompt__dialog" role="alertdialog" aria-modal="true" aria-labelledby="mobilePromptTitle" aria-describedby="mobilePromptMessage">
-      <h2 class="mobile-prompt__title" id="mobilePromptTitle">推荐使用 PC 浏览</h2>
-      <p class="mobile-prompt__message" id="mobilePromptMessage">用PC打开以获得完整体验。</p>
-      <div class="mobile-prompt__actions">
-        <button class="mobile-prompt__button" id="mobilePromptDismiss" type="button">好的</button>
-      </div>
     </div>
   </div>
 
@@ -69,3 +59,12 @@
   <script src="app.js" type="module"></script>
 </body>
 </html>
+  <div class="mobile-prompt" id="mobilePrompt" hidden>
+    <div class="mobile-prompt__dialog" role="alertdialog" aria-modal="true" aria-labelledby="mobilePromptTitle" aria-describedby="mobilePromptMessage">
+      <h2 class="mobile-prompt__title" id="mobilePromptTitle">推荐使用 PC 浏览</h2>
+      <p class="mobile-prompt__message" id="mobilePromptMessage">用PC打开以获得完整体验。</p>
+      <div class="mobile-prompt__actions">
+        <button class="mobile-prompt__button" id="mobilePromptDismiss" type="button">好的</button>
+      </div>
+    </div>
+  </div>
