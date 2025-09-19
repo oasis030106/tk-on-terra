@@ -34,15 +34,21 @@
     <div class="modal__backdrop" id="modalBackdrop"></div>
     <div class="modal__content" role="document">
       <button class="modal__close" id="modalClose" aria-label="关闭">×</button>
-      <div class="modal__viewer">
-        <button class="modal__nav modal__nav--prev" id="modalPrev" aria-label="上一页">‹</button>
-        <div class="modal__stage">
-          <img id="modalImage" alt="" />
+      <div class="modal__body">
+        <div class="modal__sidebar">
+          <div class="modal__page-indicator" id="modalPageIndicator"></div>
+          <div class="modal__thumbnails" id="modalThumbnails"></div>
         </div>
-        <div class="modal__page-indicator" id="modalPageIndicator"></div>
-        <button class="modal__nav modal__nav--next" id="modalNext" aria-label="下一页">›</button>
+        <div class="modal__viewer">
+          <div class="modal__stage">
+            <img id="modalImage" alt="" />
+          </div>
+        </div>
+        <div class="modal__nav-rail">
+          <button class="modal__nav modal__nav--prev" id="modalPrev" aria-label="上一页">↑</button>
+          <button class="modal__nav modal__nav--next" id="modalNext" aria-label="下一页">↓</button>
+        </div>
       </div>
-      <div class="modal__thumbnails" id="modalThumbnails"></div>
     </div>
   </div>
 

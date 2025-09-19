@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>大地巡礼：TK特辑</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="mobile_prompt.css" />
+</head>
+<body>
+  <div class="global-backdrop"></div>
+  <div class="cursor" id="customCursor" aria-hidden="true"></div>
+  <header class="hero">
+    <h1 class="hero__title">大地巡礼：TK特辑</h1>
+    <p class="hero__subtitle">在泰拉大地，记录随处可见的TK故事。</p>
+  </header>
+
+  <main class="layout">
+    <section class="gallery" aria-label="漫画陈列">
+      <div class="gallery__rail" id="galleryRail" role="list"></div>
+      <div class="gallery__empty" id="emptyState">当前还没有任何漫画，请先上传至 <code>manga</code> 文件夹。</div>
+    </section>
+    <aside class="preview-panel" aria-live="polite">
+      <h2 class="preview-panel__title" id="previewTitle">探索漫画</h2>
+      <p class="preview-panel__description" id="previewDescription">将鼠标移动到封面上查看简介，点击查看完整内容。</p>
+      <div class="preview-panel__meta" id="previewMeta"></div>
+    </aside>
+  </main>
+
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal__backdrop" id="modalBackdrop"></div>
+    <div class="modal__content" role="document">
+      <button class="modal__close" id="modalClose" aria-label="关闭">×</button>
+      <div class="modal__viewer">
+        <button class="modal__nav modal__nav--prev" id="modalPrev" aria-label="上一页">‹</button>
+        <div class="modal__stage">
+          <img id="modalImage" alt="" />
+        </div>
+        <div class="modal__page-indicator" id="modalPageIndicator"></div>
+        <button class="modal__nav modal__nav--next" id="modalNext" aria-label="下一页">›</button>
+      </div>
+      <div class="modal__thumbnails" id="modalThumbnails"></div>
+    </div>
+  </div>
+
+  <template id="galleryCardTemplate">
+    <article class="gallery-card" role="listitem" tabindex="0">
+      <div class="gallery-card__media">
+        <img class="gallery-card__image" alt="" loading="lazy" />
+        <div class="gallery-card__glow"></div>
+      </div>
+      <h3 class="gallery-card__title"></h3>
+    </article>
+  </template>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
+  <div class="mobile-prompt" id="mobilePrompt" hidden>
+    <div class="mobile-prompt__dialog" role="alertdialog" aria-modal="true" aria-labelledby="mobilePromptTitle" aria-describedby="mobilePromptMessage">
+      <h2 class="mobile-prompt__title" id="mobilePromptTitle">推荐使用 PC 浏览</h2>
+      <p class="mobile-prompt__message" id="mobilePromptMessage">用PC打开以获得完整体验。</p>
+      <div class="mobile-prompt__actions">
+        <button class="mobile-prompt__button" id="mobilePromptDismiss" type="button">好的</button>
+      </div>
+    </div>
+  </div>
