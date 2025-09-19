@@ -4,27 +4,24 @@
       "id": "test1",
       "title": "卡兹戴尔篇",
       "description": "听闻妮芙受到了卡莱莎小姐的“教训”，埃米决定带上妮芙对她进行小小的报复！不过，强大的卡莱莎只需轻轻施展法术似乎就足以收拾想要先发制人的二位。情急之下，灵光一闪的埃米居然意外发现了卡莱莎小姐的超级弱点？",
-      "cover": "manga/test1/1.jpg",
+      "cover": "manga/test1/1.png",
       "pages": [
-        "manga/test1/1.jpg",
-        "manga/test1/2.jpg",
-        "manga/test1/3.jpg",
-        "manga/test1/4.jpg",
-        "manga/test1/5.jpg"
+        "manga/test1/1.png",
+        "manga/test1/2.png"
       ],
-      "updatedAt": "2025-09-18T10:13:05.649220",
+      "updatedAt": "2025-09-19T00:14:19.118401",
       "backdrop": "assets/kazidaier.png"
     },
     {
       "id": "test2",
       "title": "拉特兰篇",
       "description": "拉特兰教皇厅第七厅枢机蕾缪安抓获了逃逸的阿尔图罗，并且决定磨磨她的性子。同时，为了确保身为圣徒的阿尔图罗不受实际伤害，蕾缪安从妹妹蕾缪乐身上得到灵感，决定采用一种特殊的惩戒方式......",
-      "cover": "manga/test2/1.jpg",
+      "cover": "manga/test2/1.png",
       "pages": [
-        "manga/test2/1.jpg",
-        "manga/test2/2.jpg"
+        "manga/test2/1.png",
+        "manga/test2/2.png"
       ],
-      "updatedAt": "2025-09-18T10:14:07.416380",
+      "updatedAt": "2025-09-19T00:14:19.118401",
       "backdrop": "assets/latelan.png"
     }
   ]
