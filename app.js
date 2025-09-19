@@ -360,7 +360,7 @@ function updatePreviewPanel(item) {
 
 function resetPreviewPanel() {
   previewTitle.textContent = "探索漫画";
-  previewDescription.textContent = "将鼠标移动到封面上即可查看简介。";
+  previewDescription.textContent = "将鼠标移动到封面上查看简介，点击查看完整内容。";
   previewMeta.textContent = "";
 }
 
