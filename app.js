@@ -231,44 +231,86 @@ const updateThemeForBackdrop = (imageUrl) => {
   }
 };
 
-const applyBackdrop = (imageUrl) => {
-  const targetUrl = imageUrl || DEFAULT_BACKDROP;
-  const scale = BACKDROP_SCALES[targetUrl] || DEFAULT_BACKDROP_SCALE;
-
-  if (backdropState.active === targetUrl) {
-    rootStyle.setProperty('--backdrop-scale', scale);
-    rootStyle.setProperty('--backdrop-opacity', '0.92');
-    updateThemeForBackdrop(targetUrl);
-    return;
-  }
-
-  const token = Symbol('backdrop-transition');
-  backdropState.transitionToken = token;
-
-  const commit = () => {
-    if (backdropState.transitionToken !== token) {
-      return;
-    }
-    rootStyle.setProperty('--backdrop-image', `url("${targetUrl}")`);
-    rootStyle.setProperty('--backdrop-scale', scale);
-    backdropState.active = targetUrl;
-    updateThemeForBackdrop(targetUrl);
-    window.requestAnimationFrame(() => {
-      if (backdropState.transitionToken !== token) {
-        return;
-      }
-      rootStyle.setProperty('--backdrop-opacity', '0.92');
-    });
-  };
-
-  if (!backdropState.active) {
-    commit();
-    return;
-  }
-
-  rootStyle.setProperty('--backdrop-opacity', '0');
-  window.requestAnimationFrame(commit);
-};
+const applyBackdrop = (imageUrl, options = {}) => {
+
+  const { skipTransition = false } = options;
+
+  const targetUrl = imageUrl || DEFAULT_BACKDROP;
+
+  const scale = BACKDROP_SCALES[targetUrl] || DEFAULT_BACKDROP_SCALE;
+
+
+
+  if (backdropState.active === targetUrl) {
+
+    rootStyle.setProperty('--backdrop-scale', scale);
+
+    rootStyle.setProperty('--backdrop-opacity', '0.92');
+
+    updateThemeForBackdrop(targetUrl);
+
+    return;
+
+  }
+
+
+
+  const token = Symbol('backdrop-transition');
+
+  backdropState.transitionToken = token;
+
+
+
+  const commit = () => {
+
+    if (backdropState.transitionToken !== token) {
+
+      return;
+
+    }
+
+    rootStyle.setProperty('--backdrop-image', `url("${targetUrl}")`);
+
+    rootStyle.setProperty('--backdrop-scale', scale);
+
+    backdropState.active = targetUrl;
+
+    updateThemeForBackdrop(targetUrl);
+
+    window.requestAnimationFrame(() => {
+
+      if (backdropState.transitionToken !== token) {
+
+        return;
+
+      }
+
+      rootStyle.setProperty('--backdrop-opacity', '0.92');
+
+    });
+
+  };
+
+
+
+  if (skipTransition) {
+
+    commit();
+
+    return;
+
+  }
+
+
+
+  rootStyle.setProperty('--backdrop-opacity', '0');
+
+  window.requestAnimationFrame(commit);
+
+};
+
+
+
 const setHoverBackdrop = (imageUrl, sourceId) => {
   backdropState.hover = imageUrl || null;
   backdropState.hoverId = sourceId || null;
@@ -307,7 +349,7 @@ const releaseBackdrop = () => {
   }
 };
 
-applyBackdrop(DEFAULT_BACKDROP);
+applyBackdrop(DEFAULT_BACKDROP, { skipTransition: true });
 
 let viewerState = {
   list: [],
