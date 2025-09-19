@@ -331,6 +331,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   position: relative;
   max-width: min(960px, 86vw);
   width: 100%;
+  max-height: min(92vh, 900px);
   padding: clamp(32px, 4vw, 48px);
   border-radius: var(--radius-lg);
   background: linear-gradient(155deg, rgba(26, 26, 38, 0.85), rgba(5, 7, 19, 0.94));
@@ -339,6 +340,9 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   transform: translateY(32px);
   opacity: 0;
   transition: transform var(--transition-slow), opacity var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .modal.is-active .modal__content {
@@ -368,7 +372,8 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
 }
 
 .modal__header {
-  margin-bottom: 28px;
+  margin-bottom: 20px;
+  flex-shrink: 0;
 }
 
 .modal__title {
@@ -385,9 +390,12 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
 
 .modal__viewer {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 1fr);
+  align-items: stretch;
   gap: 18px;
+  flex: 1;
+  min-height: 0;
 }
 
 .modal__nav {
@@ -400,6 +408,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   font-size: 1.5rem;
   cursor: pointer;
   transition: background var(--transition-fast), transform var(--transition-fast);
+  align-self: center;
 }
 
 .modal__nav:hover {
@@ -413,12 +422,19 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   overflow: hidden;
   background: rgba(7, 10, 24, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  height: 100%;
 }
 
 .modal__stage img {
-  width: 100%;
-  height: auto;
   display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
 }
 
 .modal__page-indicator {
@@ -433,11 +449,12 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
 }
 
 .modal__thumbnails {
-  margin-top: 20px;
+  margin-top: 16px;
   display: flex;
   gap: 12px;
   overflow-x: auto;
   padding-bottom: 4px;
+  flex-shrink: 0;
 }
 
 .modal__thumbnails img {

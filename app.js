@@ -8,7 +8,6 @@ const modal = document.getElementById("modal");
 const modalBackdrop = document.getElementById("modalBackdrop");
 const modalClose = document.getElementById("modalClose");
 const modalTitle = document.getElementById("modalTitle");
-const modalSubtitle = document.getElementById("modalSubtitle");
 const modalImage = document.getElementById("modalImage");
 const modalPageIndicator = document.getElementById("modalPageIndicator");
 const modalPrev = document.getElementById("modalPrev");
@@ -389,7 +388,6 @@ function updateModal() {
   viewerState.pageIndex = currentPage;
 
   modalTitle.textContent = manga.title;
-  modalSubtitle.textContent = manga.description || "这本漫画还没有简介。";
   modalImage.src = manga.pages[currentPage];
   modalImage.alt = `${manga.title} - 第 ${currentPage + 1} 页`;
   modalPageIndicator.textContent = `${currentPage + 1} / ${pageCount}`;
