@@ -1,32 +1,40 @@
-const galleryRail = document.getElementById("galleryRail");
-const emptyState = document.getElementById("emptyState");
-const previewTitle = document.getElementById("previewTitle");
-const previewDescription = document.getElementById("previewDescription");
-const previewMeta = document.getElementById("previewMeta");
 
-const modal = document.getElementById("modal");
-const modalBackdrop = document.getElementById("modalBackdrop");
-const modalClose = document.getElementById("modalClose");
-const modalImage = document.getElementById("modalImage");
-const modalPageIndicator = document.getElementById("modalPageIndicator");
-const modalPrev = document.getElementById("modalPrev");
-const modalNext = document.getElementById("modalNext");
-const modalThumbnails = document.getElementById("modalThumbnails");
+const galleryRail = document.getElementById('galleryRail');
+const emptyState = document.getElementById('emptyState');
+const previewTitle = document.getElementById('previewTitle');
+const previewDescription = document.getElementById('previewDescription');
+const previewMeta = document.getElementById('previewMeta');
 
-const template = document.getElementById("galleryCardTemplate");
+const modal = document.getElementById('modal');
+const modalBackdrop = document.getElementById('modalBackdrop');
+const modalClose = document.getElementById('modalClose');
+const modalImage = document.getElementById('modalImage');
+const modalPageIndicator = document.getElementById('modalPageIndicator');
+const modalPrev = document.getElementById('modalPrev');
+const modalNext = document.getElementById('modalNext');
+const modalThumbnails = document.getElementById('modalThumbnails');
 
-const customCursor = document.getElementById("customCursor");
-const interactiveCursorTargets = "a, button, .gallery-card, .modal__nav, .modal__close";
+const template = document.getElementById('galleryCardTemplate');
 
-const mobilePromptRoot = document.getElementById("mobilePrompt");
-const mobilePromptDismiss = document.getElementById("mobilePromptDismiss");
+const customCursor = document.getElementById('customCursor');
+const interactiveCursorTargets = 'a, button, .gallery-card, .modal__nav, .modal__close';
+
+const mobilePromptRoot = document.getElementById('mobilePrompt');
+const mobilePromptDismiss = document.getElementById('mobilePromptDismiss');
 
 const rootStyle = document.documentElement.style;
 const DEFAULT_BACKDROP = 'assets/logo1.png';
-const DEFAULT_BACKDROP_SCALE = '0.73';
+const DEFAULT_BACKDROP_SCALE = '1.05';
 const BACKDROP_SCALES = {
-  'assets/kazidaier.png': '0.78',
-  'assets/latelan.png': '0.88',
+  'assets/kazidaier.png': '1.12',
+  'assets/latelan.png': '1.14',
+};
+
+const STRINGS = {
+  previewTitleDefault: '探索漫画',
+  previewDescriptionDefault: '将鼠标移动到封面上查看简介，点击查看完整内容。',
+  noDescriptionFallback: '暂无简介，期待您的补充。',
+  loadError: '加载画廊数据时出现问题，请稍后重试。',
 };
 
 const backdropState = {
@@ -37,15 +45,15 @@ const backdropState = {
   transitionToken: null,
 };
 
+const mobilePromptState = {
+  isOpen: false,
+  hasBeenShown: false,
+};
+
 let viewerState = {
   list: [],
   mangaIndex: 0,
   pageIndex: 0,
-};
-
-const mobilePromptState = {
-  isOpen: false,
-  hasBeenShown: false,
 };
 
 const isProbablyMobile = () => {
@@ -103,7 +111,8 @@ window.addEventListener('resize', () => {
   }
 });
 
-if (customCursor) {
+const enableCustomCursor = () => {
+  if (!customCursor) return;
   const finePointer = window.matchMedia('(pointer: fine)');
   const isMouseEvent = (event) => typeof event.pointerType !== 'string' || event.pointerType === 'mouse';
 
@@ -116,7 +125,7 @@ if (customCursor) {
     customCursor.classList.toggle('is-visible', shouldShow);
   };
 
-  const enableCursor = () => {
+  const attachListeners = () => {
     document.body.classList.add('has-custom-cursor');
 
     document.addEventListener('pointermove', (event) => {
@@ -160,7 +169,7 @@ if (customCursor) {
   };
 
   if (finePointer.matches) {
-    enableCursor();
+    attachListeners();
   } else {
     customCursor.remove();
   }
@@ -173,7 +182,9 @@ if (customCursor) {
       }
     });
   }
-}
+};
+
+enableCustomCursor();
 
 const brightnessCache = new Map();
 
@@ -288,7 +299,7 @@ const applyBackdrop = (imageUrl, options = {}) => {
     if (backdropState.transitionToken !== token) {
       return;
     }
-    rootStyle.setProperty('--backdrop-image', `url("${targetUrl}")`);
+    rootStyle.setProperty('--backdrop-image', `url(${targetUrl})`);
     rootStyle.setProperty('--backdrop-scale', scale);
     backdropState.active = targetUrl;
     updateThemeForBackdrop(targetUrl);
@@ -309,42 +320,9 @@ const applyBackdrop = (imageUrl, options = {}) => {
   window.requestAnimationFrame(commit);
 };
 
-const setHoverBackdrop = (imageUrl, sourceId) => {
-  backdropState.hover = imageUrl || null;
-  backdropState.hoverId = sourceId || null;
-  if (!backdropState.locked) {
-    applyBackdrop(backdropState.hover);
-  }
-};
-
-const clearHoverBackdrop = (sourceId) => {
-  if (sourceId && backdropState.hoverId && backdropState.hoverId !== sourceId) {
-    return;
-  }
-  backdropState.hover = null;
-  backdropState.hoverId = null;
-  if (!backdropState.locked) {
-    applyBackdrop(null);
-  }
-};
-
-const lockBackdrop = (imageUrl) => {
-  backdropState.locked = true;
-  applyBackdrop(imageUrl);
-};
-
-const releaseBackdrop = () => {
-  backdropState.locked = false;
-  if (backdropState.hover) {
-    applyBackdrop(backdropState.hover);
-  } else {
-    applyBackdrop(null);
-  }
-};
-
 const maybeUpdatePreview = (item) => {
   previewTitle.textContent = item.title;
-  previewDescription.textContent = item.description || '暂无简介，期待您的补充。';
+  previewDescription.textContent = item.description || STRINGS.noDescriptionFallback;
   const info = [`共 ${item.pages.length} 页`];
   if (item.updatedAt) {
     info.push(`最近更新：${new Date(item.updatedAt).toLocaleDateString('zh-CN')}`);
@@ -353,8 +331,8 @@ const maybeUpdatePreview = (item) => {
 };
 
 const resetPreview = () => {
-  previewTitle.textContent = '探索漫画';
-  previewDescription.textContent = '将鼠标移动到封面上查看简介，点击查看完整内容。';
+  previewTitle.textContent = STRINGS.previewTitleDefault;
+  previewDescription.textContent = STRINGS.previewDescriptionDefault;
   previewMeta.textContent = '';
 };
 
@@ -493,7 +471,7 @@ const loadGallery = async () => {
     renderGallery(viewerState.list);
   } catch (error) {
     console.error('加载画廊数据出错', error);
-    emptyState.textContent = '加载画廊数据时出现问题，请稍后重试。';
+    emptyState.textContent = STRINGS.loadError;
     emptyState.style.display = 'block';
   }
 };
