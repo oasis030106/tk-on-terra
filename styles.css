@@ -16,7 +16,15 @@
   --backdrop-image: url('/assets/logo1.png');
   --backdrop-opacity: 0.92;
   --backdrop-scale: 0.73;
+  --cursor-base: rgba(255, 255, 255, 0.18);
+  --cursor-aim: rgba(255, 255, 255, 0.28);
+  --cursor-click: rgba(120, 132, 150, 0.68);
+  --cursor-click-aim: rgba(96, 117, 135, 0.85);
+  --cursor-shadow: 0 12px 34px rgba(7, 10, 24, 0.33);
+  --cursor-shadow-aim: 0 18px 46px rgba(10, 132, 255, 0.35);
+  --cursor-shadow-click: 0 12px 28px rgba(7, 10, 24, 0.45);
 }
+
 
 
 * {
@@ -84,8 +92,8 @@ body.has-custom-cursor * {
   width: 22px;
   height: 22px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 12px 34px rgba(7, 10, 24, 0.33);
+  background: var(--cursor-base);
+  box-shadow: var(--cursor-shadow);
   transform: translate(-50%, -50%) scale(var(--cursor-scale, 1));
   transition: transform var(--transition-fast), background 220ms ease, opacity 200ms ease, box-shadow var(--transition-fast);
   pointer-events: none;
@@ -100,19 +108,19 @@ body.has-custom-cursor #customCursor.is-visible {
 
 body.has-custom-cursor #customCursor.is-aiming {
   --cursor-scale: 1.6;
-  background: rgba(255, 255, 255, 0.28);
-  box-shadow: 0 18px 46px rgba(10, 132, 255, 0.35);
+  background: var(--cursor-aim);
+  box-shadow: var(--cursor-shadow-aim);
 }
 
 body.has-custom-cursor #customCursor.is-clicked {
   --cursor-scale: 0.72;
-  background: rgba(120, 132, 150, 0.68);
-  box-shadow: 0 12px 28px rgba(7, 10, 24, 0.45);
+  background: var(--cursor-click);
+  box-shadow: var(--cursor-shadow-click);
 }
 
 body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   --cursor-scale: 0.6;
-  background: rgba(96, 117, 135, 0.85);
+  background: var(--cursor-click-aim);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -145,6 +153,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
   gap: clamp(32px, 4vw, 56px);
   padding: 0 clamp(32px, 7vw, 108px) 120px;
+  align-items: start;
 }
 
 .gallery {
@@ -152,26 +161,19 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   display: flex;
   flex-direction: column;
   gap: 28px;
+  min-height: 0;
 }
 
 .gallery__rail {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(220px, 320px);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: clamp(24px, 3vw, 40px);
-  overflow-x: auto;
-  padding: 16px 8px 16px 0;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
-}
-
-.gallery__rail::-webkit-scrollbar {
-  height: 8px;
-}
-
-.gallery__rail::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
+  padding: 8px 0 32px;
+  list-style: none;
+  margin: 0;
+  overflow: visible;
+  align-content: start;
+  grid-auto-rows: 1fr;
 }
 
 .gallery__empty {
@@ -187,7 +189,6 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
 
 .gallery-card {
   position: relative;
-  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -201,6 +202,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   cursor: pointer;
   isolation: isolate;
   color: var(--text-primary);
+  min-height: 100%;
 }
 
 
@@ -391,7 +393,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
 .modal__viewer {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
-  grid-template-rows: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
   align-items: stretch;
   gap: 18px;
   flex: 1;
@@ -409,6 +411,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   cursor: pointer;
   transition: background var(--transition-fast), transform var(--transition-fast);
   align-self: center;
+  grid-row: 1 / span 2;
 }
 
 .modal__nav:hover {
@@ -417,6 +420,8 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
 }
 
 .modal__stage {
+  grid-column: 2;
+  grid-row: 1;
   position: relative;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -427,25 +432,28 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   justify-content: center;
   min-height: 0;
   height: 100%;
+  justify-self: center;
+  max-width: min(100%, 68vh);
 }
 
 .modal__stage img {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .modal__page-indicator {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
   padding: 6px 14px;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.45);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   letter-spacing: 0.12em;
+  color: var(--text-primary);
+  pointer-events: none;
 }
 
 .modal__thumbnails {
@@ -477,6 +485,10 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
 
 body.theme-light {
   color: var(--text-primary);
+}
+
+body.theme-light #customCursor {
+  mix-blend-mode: normal;
 }
 
 body.theme-light .gallery-card {
@@ -530,6 +542,8 @@ body.theme-light .modal__subtitle {
 }
 
 body.theme-light .modal__stage {
+  grid-column: 2;
+  grid-row: 1;
   background: rgba(244, 246, 252, 0.95);
   border: 1px solid rgba(24, 32, 50, 0.12);
 }
@@ -563,23 +577,6 @@ body.theme-light .modal__thumbnails img.is-active {
   opacity: 1;
 }
 
-body.theme-light #customCursor {
-  background: rgba(26, 30, 40, 0.18);
-  box-shadow: 0 12px 28px rgba(16, 23, 42, 0.16);
-}
-
-body.theme-light #customCursor.is-aiming {
-  background: rgba(26, 30, 40, 0.28);
-}
-
-body.theme-light #customCursor.is-clicked {
-  background: rgba(26, 30, 40, 0.42);
-}
-
-body.theme-light #customCursor.is-clicked.is-aiming {
-  background: rgba(26, 30, 40, 0.5);
-}
-
 @media (max-width: 1100px) {
   .layout {
     grid-template-columns: 1fr;
@@ -606,7 +603,8 @@ body.theme-light #customCursor.is-clicked.is-aiming {
   }
 
   .gallery__rail {
-    grid-auto-columns: minmax(180px, 240px);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
   }
 
   .modal__content {

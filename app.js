@@ -127,12 +127,26 @@ const COLOR_THEMES = {
     vars: {
       '--text-primary': '#f5f5f7',
       '--text-secondary': 'rgba(245, 245, 247, 0.7)',
+      '--cursor-base': 'rgba(255, 255, 255, 0.18)',
+      '--cursor-aim': 'rgba(255, 255, 255, 0.28)',
+      '--cursor-click': 'rgba(120, 132, 150, 0.68)',
+      '--cursor-click-aim': 'rgba(96, 117, 135, 0.85)',
+      '--cursor-shadow': '0 12px 34px rgba(7, 10, 24, 0.33)',
+      '--cursor-shadow-aim': '0 18px 46px rgba(10, 132, 255, 0.35)',
+      '--cursor-shadow-click': '0 12px 28px rgba(7, 10, 24, 0.45)',
     },
   },
   light: {
     vars: {
       '--text-primary': '#121318',
       '--text-secondary': 'rgba(17, 19, 26, 0.66)',
+      '--cursor-base': 'rgba(26, 30, 40, 0.18)',
+      '--cursor-aim': 'rgba(26, 30, 40, 0.28)',
+      '--cursor-click': 'rgba(26, 30, 40, 0.42)',
+      '--cursor-click-aim': 'rgba(26, 30, 40, 0.5)',
+      '--cursor-shadow': '0 12px 28px rgba(16, 23, 42, 0.16)',
+      '--cursor-shadow-aim': '0 18px 40px rgba(17, 24, 45, 0.18)',
+      '--cursor-shadow-click': '0 12px 24px rgba(17, 24, 45, 0.2)',
     },
   },
 };
