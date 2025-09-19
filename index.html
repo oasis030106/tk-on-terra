@@ -33,7 +33,10 @@
   <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal__backdrop" id="modalBackdrop"></div>
     <div class="modal__content" role="document">
-      <button class="modal__close" id="modalClose" aria-label="关闭">×</button>
+      <div class="modal__toolbar">
+        <button class="modal__maximize" id="modalMaximize" aria-label="切换沉浸模式">⤢</button>
+        <button class="modal__close" id="modalClose" aria-label="关闭">×</button>
+      </div>
       <div class="modal__viewer">
         <button class="modal__nav modal__nav--prev" id="modalPrev" aria-label="上一页">‹</button>
         <div class="modal__stage">

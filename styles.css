@@ -602,3 +602,93 @@ body.theme-light .modal__thumbnails img.is-active {
     display: none;
   }
 }
+.modal__toolbar {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  z-index: 1;
+}
+
+.modal__maximize,
+.modal__close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.modal__maximize {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+}
+
+.modal__maximize:hover,
+.modal__maximize:focus-visible {
+  background: rgba(255, 255, 255, 0.24);
+  transform: scale(1.05);
+}
+
+.modal__close {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.modal__close:hover,
+.modal__close:focus-visible {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.modal.is-immersive .modal__content {
+  max-width: min(1200px, 96vw);
+  max-height: 98vh;
+  padding: clamp(16px, 3vw, 24px);
+  border-radius: 18px;
+  background: rgba(2, 6, 18, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.modal.is-immersive .modal__viewer {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px;
+}
+
+.modal.is-immersive .modal__nav {
+  display: none;
+}
+
+.modal.is-immersive .modal__stage {
+  grid-column: 1;
+  grid-row: 1;
+  max-width: none;
+  border: none;
+  background: transparent;
+}
+
+.modal.is-immersive .modal__stage img {
+  width: auto;
+  height: 100%;
+  max-width: none;
+}
+
+.modal.is-immersive .modal__page-indicator {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal.is-immersive .modal__thumbnails {
+  gap: 16px;
+}
