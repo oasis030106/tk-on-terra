@@ -15,6 +15,9 @@ const modalThumbnails = document.getElementById("modalThumbnails");
 
 const template = document.getElementById("galleryCardTemplate");
 
+const mobilePromptRoot = document.getElementById("mobilePrompt");
+const mobilePromptDismiss = document.getElementById("mobilePromptDismiss");
+
 const customCursor = document.getElementById("customCursor");
 const interactiveCursorTargets = "a, button, .gallery-card, .modal__nav, .modal__close";
 
@@ -491,3 +494,49 @@ window.addEventListener("keydown", (event) => {
 });
 
 loadGallery();
+const mobilePromptState = {
+  isOpen: false,
+  hasBeenShown: false,
+};
+
+const isProbablyMobile = () => {
+  const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+  const narrowViewport = window.matchMedia('(max-width: 768px)').matches;
+  return coarsePointer || narrowViewport;
+};
+
+const openMobilePrompt = () => {
+  if (!mobilePromptRoot || mobilePromptState.isOpen) return;
+  mobilePromptRoot.hidden = false;
+  mobilePromptRoot.setAttribute('aria-hidden', 'false');
+  mobilePromptState.isOpen = true;
+  mobilePromptState.hasBeenShown = true;
+  document.body.style.overflow = 'hidden';
+};
+
+const closeMobilePrompt = () => {
+  if (!mobilePromptRoot || !mobilePromptState.isOpen) return;
+  mobilePromptRoot.hidden = true;
+  mobilePromptRoot.setAttribute('aria-hidden', 'true');
+  mobilePromptState.isOpen = false;
+  document.body.style.overflow = '';
+};
+
+if (mobilePromptDismiss) {
+  mobilePromptDismiss.addEventListener('click', closeMobilePrompt);
+}
+
+const maybeShowMobilePrompt = () => {
+  if (mobilePromptState.hasBeenShown) return;
+  if (isProbablyMobile()) {
+    openMobilePrompt();
+  }
+};
+
+maybeShowMobilePrompt();
+
+window.addEventListener('resize', () => {
+  if (!mobilePromptState.isOpen && !mobilePromptState.hasBeenShown && isProbablyMobile()) {
+    openMobilePrompt();
+  }
+});

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css" />`n  <link rel="stylesheet" href="mobile_prompt.css" />
 </head>
 <body>
   <div class="global-backdrop"></div>
@@ -58,3 +58,12 @@
   <script src="app.js" type="module"></script>
 </body>
 </html>
+  <div class="mobile-prompt" id="mobilePrompt" hidden>
+    <div class="mobile-prompt__dialog" role="alertdialog" aria-modal="true" aria-labelledby="mobilePromptTitle" aria-describedby="mobilePromptMessage">
+      <h2 class="mobile-prompt__title" id="mobilePromptTitle">推荐使用 PC 浏览</h2>
+      <p class="mobile-prompt__message" id="mobilePromptMessage">用 PC 打开以获得完整体验。大屏幕能让你更沉浸地欣赏漫画细节。</p>
+      <div class="mobile-prompt__actions">
+        <button class="mobile-prompt__button" id="mobilePromptDismiss">好的</button>
+      </div>
+    </div>
+  </div>
