@@ -114,12 +114,15 @@ const BACKDROP_SCALES = {
   'assets/latelan.png': '0.88',
 };
 
+const BACKDROP_FADE_DELAY = 200;
+
 const backdropState = {
   locked: false,
   hover: null,
   hoverId: null,
   active: null,
   transitionToken: null,
+  transitionTimeoutId: null,
 };
 
 const COLOR_THEMES = {
@@ -232,90 +235,73 @@ const updateThemeForBackdrop = (imageUrl) => {
 };
 
 const applyBackdrop = (imageUrl, options = {}) => {
-
   const { skipTransition = false } = options;
-
   const targetUrl = imageUrl || DEFAULT_BACKDROP;
-
   const scale = BACKDROP_SCALES[targetUrl] || DEFAULT_BACKDROP_SCALE;
 
-
-
   if (backdropState.active === targetUrl) {
-
+    backdropState.transitionToken = null;
+    if (backdropState.transitionTimeoutId) {
+      clearTimeout(backdropState.transitionTimeoutId);
+      backdropState.transitionTimeoutId = null;
+    }
+    backdropState.active = targetUrl;
     rootStyle.setProperty('--backdrop-scale', scale);
-
     rootStyle.setProperty('--backdrop-opacity', '0.92');
-
     updateThemeForBackdrop(targetUrl);
-
     return;
-
   }
 
-
+  if (backdropState.transitionTimeoutId) {
+    clearTimeout(backdropState.transitionTimeoutId);
+    backdropState.transitionTimeoutId = null;
+  }
 
   const token = Symbol('backdrop-transition');
-
   backdropState.transitionToken = token;
 
-
-
   const commit = () => {
-
     if (backdropState.transitionToken !== token) {
-
       return;
-
     }
-
     rootStyle.setProperty('--backdrop-image', `url("${targetUrl}")`);
-
     rootStyle.setProperty('--backdrop-scale', scale);
-
     backdropState.active = targetUrl;
-
     updateThemeForBackdrop(targetUrl);
-
     window.requestAnimationFrame(() => {
-
       if (backdropState.transitionToken !== token) {
-
         return;
-
       }
-
       rootStyle.setProperty('--backdrop-opacity', '0.92');
-
+      backdropState.transitionToken = null;
     });
-
   };
 
-
-
   if (skipTransition) {
-
+    if (backdropState.transitionTimeoutId) {
+      clearTimeout(backdropState.transitionTimeoutId);
+      backdropState.transitionTimeoutId = null;
+    }
     commit();
-
     return;
-
   }
 
-
-
   rootStyle.setProperty('--backdrop-opacity', '0');
-
-  window.requestAnimationFrame(commit);
-
+  backdropState.transitionTimeoutId = window.setTimeout(() => {
+    backdropState.transitionTimeoutId = null;
+    commit();
+  }, BACKDROP_FADE_DELAY);
 };
 
-
+const transitionalApplyBackdrop = (imageUrl) => {
+  applyBackdrop(imageUrl, { skipTransition: false });
+};
 
 const setHoverBackdrop = (imageUrl, sourceId) => {
   backdropState.hover = imageUrl || null;
   backdropState.hoverId = sourceId || null;
   if (!backdropState.locked) {
-    applyBackdrop(backdropState.hover);
+    transitionalApplyBackdrop(backdropState.hover);
   }
 };
 
@@ -326,26 +312,26 @@ const clearHoverBackdrop = (sourceId) => {
   backdropState.hover = null;
   backdropState.hoverId = null;
   if (!backdropState.locked) {
-    applyBackdrop(null);
+    transitionalApplyBackdrop(null);
   }
 };
 
 const lockBackdrop = (imageUrl) => {
   if (imageUrl) {
     backdropState.locked = true;
-    applyBackdrop(imageUrl);
+    transitionalApplyBackdrop(imageUrl);
   } else {
     backdropState.locked = false;
-    applyBackdrop(backdropState.hover);
+    transitionalApplyBackdrop(backdropState.hover);
   }
 };
 
 const releaseBackdrop = () => {
   backdropState.locked = false;
   if (backdropState.hover) {
-    applyBackdrop(backdropState.hover);
+    transitionalApplyBackdrop(backdropState.hover);
   } else {
-    applyBackdrop(null);
+    transitionalApplyBackdrop(null);
   }
 };
 
