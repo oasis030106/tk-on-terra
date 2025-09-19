@@ -299,7 +299,7 @@ const applyBackdrop = (imageUrl, options = {}) => {
     if (backdropState.transitionToken !== token) {
       return;
     }
-    rootStyle.setProperty('--backdrop-image', `url(${targetUrl})`);
+    rootStyle.setProperty('--backdrop-image', `url("${targetUrl}")`);
     rootStyle.setProperty('--backdrop-scale', scale);
     backdropState.active = targetUrl;
     updateThemeForBackdrop(targetUrl);
