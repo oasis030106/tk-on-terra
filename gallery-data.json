@@ -7,9 +7,13 @@
       "cover": "manga/test1/1.png",
       "pages": [
         "manga/test1/1.png",
-        "manga/test1/2.png"
+        "manga/test1/2.png",
+        "manga/test1/3.png",
+        "manga/test1/4.png",
+        "manga/test1/5.png",
+        "manga/test1/6.png"
       ],
-      "updatedAt": "2025-09-19T00:14:19.118401",
+      "updatedAt": "2025-09-19T10:13:32",
       "backdrop": "assets/kazidaier.png"
     },
     {
@@ -19,9 +23,13 @@
       "cover": "manga/test2/1.png",
       "pages": [
         "manga/test2/1.png",
-        "manga/test2/2.png"
+        "manga/test2/2.png",
+        "manga/test2/3.png",
+        "manga/test2/4.png",
+        "manga/test2/5.png",
+        "manga/test2/6.png"
       ],
-      "updatedAt": "2025-09-19T00:14:19.118401",
+      "updatedAt": "2025-09-19T10:13:32",
       "backdrop": "assets/latelan.png"
     }
   ]

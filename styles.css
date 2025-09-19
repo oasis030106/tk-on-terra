@@ -455,7 +455,6 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   max-height: 100%;
   object-fit: contain;
   border-radius: 14px;
-  border: 3px solid rgba(255, 255, 255, 0.85);
   box-shadow: 0 24px 60px rgba(8, 12, 30, 0.45);
 }
 
@@ -567,7 +566,6 @@ body.theme-light .modal__stage {
 }
 
 body.theme-light .modal__stage img {
-  border-color: rgba(24, 32, 50, 0.22);
   box-shadow: 0 20px 48px rgba(16, 23, 42, 0.2);
 }
 
