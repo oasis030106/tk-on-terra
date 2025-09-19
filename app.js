@@ -507,7 +507,8 @@ const isProbablyMobile = () => {
 
 const openMobilePrompt = () => {
   if (!mobilePromptRoot || mobilePromptState.isOpen) return;
-  mobilePromptRoot.hidden = false;
+  mobilePromptRoot.classList.add('is-active');
+  mobilePromptRoot.removeAttribute('hidden');
   mobilePromptRoot.setAttribute('aria-hidden', 'false');
   mobilePromptState.isOpen = true;
   mobilePromptState.hasBeenShown = true;
@@ -516,8 +517,9 @@ const openMobilePrompt = () => {
 
 const closeMobilePrompt = () => {
   if (!mobilePromptRoot || !mobilePromptState.isOpen) return;
-  mobilePromptRoot.hidden = true;
+  mobilePromptRoot.classList.remove('is-active');
   mobilePromptRoot.setAttribute('aria-hidden', 'true');
+  mobilePromptRoot.setAttribute('hidden', '');
   mobilePromptState.isOpen = false;
   document.body.style.overflow = '';
 };
