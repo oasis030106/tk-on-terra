@@ -110,10 +110,10 @@ if (customCursor) {
 }
 
 const rootStyle = document.documentElement.style;
-const DEFAULT_BACKDROP = '/assets/logo1.png';
+const DEFAULT_BACKDROP = 'assets/logo1.png';
 const DEFAULT_BACKDROP_SCALE = '0.73';
 const BACKDROP_SCALES = {
-  '/assets/latelan.png': '0.88',
+  'assets/latelan.png': '0.88',
 };
 
 const backdropState = {
@@ -276,7 +276,8 @@ let viewerState = {
 
 async function loadGallery() {
   try {
-    const response = await fetch("/api/gallery", { cache: "no-store" });
+    const dataUrl = new URL('gallery-data.json', window.location.href);
+    const response = await fetch(dataUrl.toString(), { cache: 'no-store' });
     if (!response.ok) {
       throw new Error(`请求失败：${response.status}`);
     }

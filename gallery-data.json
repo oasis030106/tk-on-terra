@@ -1,0 +1,31 @@
+{
+  "items": [
+    {
+      "id": "test1",
+      "title": "卡兹戴尔篇",
+      "description": "妮芙、埃米与卡莱莎的欢乐午后",
+      "cover": "manga/test1/1.jpg",
+      "pages": [
+        "manga/test1/1.jpg",
+        "manga/test1/2.jpg",
+        "manga/test1/3.jpg",
+        "manga/test1/4.jpg",
+        "manga/test1/5.jpg"
+      ],
+      "updatedAt": "2025-09-18T10:13:05.649220",
+      "backdrop": "assets/kazidaier.png"
+    },
+    {
+      "id": "test2",
+      "title": "拉特兰篇",
+      "description": "第七厅枢机对圣徒的处置",
+      "cover": "manga/test2/1.jpg",
+      "pages": [
+        "manga/test2/1.jpg",
+        "manga/test2/2.jpg"
+      ],
+      "updatedAt": "2025-09-18T10:14:07.416380",
+      "backdrop": "assets/latelan.png"
+    }
+  ]
+}
