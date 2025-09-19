@@ -119,6 +119,7 @@ const backdropState = {
   hover: null,
   hoverId: null,
   active: null,
+  transitionToken: null,
 };
 
 const COLOR_THEMES = {
@@ -230,16 +231,44 @@ const updateThemeForBackdrop = (imageUrl) => {
   }
 };
 
-const applyBackdrop = (imageUrl) => {
-  const targetUrl = imageUrl || DEFAULT_BACKDROP;
-  rootStyle.setProperty('--backdrop-image', `url("${targetUrl}")`);
-  rootStyle.setProperty('--backdrop-opacity', '0.92');
-  const scale = BACKDROP_SCALES[targetUrl] || DEFAULT_BACKDROP_SCALE;
-  rootStyle.setProperty('--backdrop-scale', scale);
-  backdropState.active = targetUrl;
-  updateThemeForBackdrop(targetUrl);
-};
-
+const applyBackdrop = (imageUrl) => {
+  const targetUrl = imageUrl || DEFAULT_BACKDROP;
+  const scale = BACKDROP_SCALES[targetUrl] || DEFAULT_BACKDROP_SCALE;
+
+  if (backdropState.active === targetUrl) {
+    rootStyle.setProperty('--backdrop-scale', scale);
+    rootStyle.setProperty('--backdrop-opacity', '0.92');
+    updateThemeForBackdrop(targetUrl);
+    return;
+  }
+
+  const token = Symbol('backdrop-transition');
+  backdropState.transitionToken = token;
+
+  const commit = () => {
+    if (backdropState.transitionToken !== token) {
+      return;
+    }
+    rootStyle.setProperty('--backdrop-image', `url("${targetUrl}")`);
+    rootStyle.setProperty('--backdrop-scale', scale);
+    backdropState.active = targetUrl;
+    updateThemeForBackdrop(targetUrl);
+    window.requestAnimationFrame(() => {
+      if (backdropState.transitionToken !== token) {
+        return;
+      }
+      rootStyle.setProperty('--backdrop-opacity', '0.92');
+    });
+  };
+
+  if (!backdropState.active) {
+    commit();
+    return;
+  }
+
+  rootStyle.setProperty('--backdrop-opacity', '0');
+  window.requestAnimationFrame(commit);
+};
 const setHoverBackdrop = (imageUrl, sourceId) => {
   backdropState.hover = imageUrl || null;
   backdropState.hoverId = sourceId || null;
