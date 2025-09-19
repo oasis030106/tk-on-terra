@@ -24,10 +24,10 @@ const mobilePromptDismiss = document.getElementById('mobilePromptDismiss');
 
 const rootStyle = document.documentElement.style;
 const DEFAULT_BACKDROP = 'assets/logo1.png';
-const DEFAULT_BACKDROP_SCALE = '1.05';
+const DEFAULT_BACKDROP_SCALE = '1.08';
 const BACKDROP_SCALES = {
-  'assets/kazidaier.png': '1.12',
-  'assets/latelan.png': '1.14',
+  'assets/kazidaier.png': '1.15',
+  'assets/latelan.png': '1.18',
 };
 
 const STRINGS = {
@@ -287,7 +287,7 @@ const applyBackdrop = (imageUrl, options = {}) => {
 
   if (backdropState.active === targetUrl) {
     rootStyle.setProperty('--backdrop-scale', scale);
-    rootStyle.setProperty('--backdrop-opacity', '0.92');
+    rootStyle.setProperty('--backdrop-opacity', '1');
     updateThemeForBackdrop(targetUrl);
     return;
   }
@@ -299,7 +299,7 @@ const applyBackdrop = (imageUrl, options = {}) => {
     if (backdropState.transitionToken !== token) {
       return;
     }
-    rootStyle.setProperty('--backdrop-image', `url("${targetUrl}")`);
+    rootStyle.setProperty('--backdrop-image', `url(\"${targetUrl}\")`);
     rootStyle.setProperty('--backdrop-scale', scale);
     backdropState.active = targetUrl;
     updateThemeForBackdrop(targetUrl);
@@ -307,7 +307,7 @@ const applyBackdrop = (imageUrl, options = {}) => {
       if (backdropState.transitionToken !== token) {
         return;
       }
-      rootStyle.setProperty('--backdrop-opacity', '0.92');
+      rootStyle.setProperty('--backdrop-opacity', '1');
     });
   };
 
@@ -317,7 +317,12 @@ const applyBackdrop = (imageUrl, options = {}) => {
   }
 
   rootStyle.setProperty('--backdrop-opacity', '0');
-  window.requestAnimationFrame(commit);
+  window.setTimeout(() => {
+    if (backdropState.transitionToken !== token) {
+      return;
+    }
+    commit();
+  }, 80);
 };
 
 const maybeUpdatePreview = (item) => {
