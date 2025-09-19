@@ -64,9 +64,3 @@
   transform: translateY(-2px);
   box-shadow: 0 22px 44px rgba(16, 20, 35, 0.28);
 }
-
-@media (min-width: 721px) {
-  .mobile-prompt {
-    display: none;
-  }
-}

@@ -12,7 +12,6 @@ const modalPageIndicator = document.getElementById("modalPageIndicator");
 const modalPrev = document.getElementById("modalPrev");
 const modalNext = document.getElementById("modalNext");
 const modalThumbnails = document.getElementById("modalThumbnails");
-const modalMaximize = document.getElementById("modalMaximize");
 
 const template = document.getElementById("galleryCardTemplate");
 
@@ -437,9 +436,6 @@ function closeModal() {
 function updateModal() {
   const manga = viewerState.list[viewerState.mangaIndex];
   const pageCount = manga.pages.length;
-  if (!manga.backdrop && isImmersive) {
-    updateImmersiveState(false);
-  }
   const currentPage = Math.min(Math.max(viewerState.pageIndex, 0), pageCount - 1);
   viewerState.pageIndex = currentPage;
 
@@ -489,10 +485,10 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeModal();
   }
-  if (event.key === "ArrowRight") {
+  if (event.key === "ArrowRight" || event.key === "ArrowDown") {
     modalNext.click();
   }
-  if (event.key === "ArrowLeft") {
+  if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
     modalPrev.click();
   }
 });
@@ -557,16 +553,8 @@ window.addEventListener('resize', () => {
     openMobilePrompt();
   }
 });
-let isImmersive = false;
 
-const updateImmersiveState = (shouldEnable) => {
-  if (shouldEnable === isImmersive) return;
-  isImmersive = shouldEnable;
-  modal.classList.toggle('is-immersive', isImmersive);
 };
 
-if (modalMaximize) {
-  modalMaximize.addEventListener('click', () => {
-    updateImmersiveState(!isImmersive);
   });
 }
