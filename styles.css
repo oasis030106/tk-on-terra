@@ -352,7 +352,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(128px, min(16vw, 260px)) minmax(0, 1fr) 72px;
+  grid-template-columns: minmax(115px, min(14vw, 220px)) minmax(0, 1fr) 72px;
   gap: 24px;
   align-items: stretch;
   height: 100%;
@@ -396,6 +396,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   border-radius: 50%;
   cursor: pointer;
   transition: background var(--transition-fast), transform var(--transition-fast);
+  font-weight: 700;
 }
 
 .modal__close:hover {
@@ -425,6 +426,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: 700;
 }
 
 .modal__nav:hover {
@@ -434,25 +436,27 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
 
 .modal__stage {
   position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  background: rgba(7, 10, 24, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 0;
   width: 100%;
   height: 100%;
+  padding: clamp(12px, 2vw, 28px);
+  background: rgba(7, 10, 24, 0.4);
+  border-radius: 24px;
 }
 
 .modal__stage img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  border-radius: 14px;
+  border: 3px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 24px 60px rgba(8, 12, 30, 0.45);
 }
 
 .modal__page-indicator {
@@ -465,6 +469,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   pointer-events: none;
   text-align: center;
   align-self: flex-start;
+  font-weight: 600;
 }
 
 .modal__thumbnails {
@@ -477,14 +482,15 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   padding-right: 6px;
   flex-shrink: 0;
   max-height: 100%;
+  align-items: center;
 }
 
 .modal__thumbnails img {
-  width: 100%;
+  width: clamp(92px, 11vw, 140px);
   height: auto;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  border-radius: 18px;
+  border-radius: 14px;
   border: 2px solid transparent;
   cursor: pointer;
   opacity: 0.65;
@@ -557,8 +563,12 @@ body.theme-light .modal__subtitle {
 }
 
 body.theme-light .modal__stage {
-  background: rgba(244, 246, 252, 0.95);
-  border: 1px solid rgba(24, 32, 50, 0.12);
+  background: rgba(244, 246, 252, 0.82);
+}
+
+body.theme-light .modal__stage img {
+  border-color: rgba(24, 32, 50, 0.22);
+  box-shadow: 0 20px 48px rgba(16, 23, 42, 0.2);
 }
 
 body.theme-light .modal__page-indicator {
@@ -602,7 +612,7 @@ body.theme-light .modal__thumbnails img.is-active {
   }
 
   .modal__body {
-    grid-template-columns: minmax(115px, min(22vw, 220px)) minmax(0, 1fr) 64px;
+    grid-template-columns: minmax(110px, min(20vw, 200px)) minmax(0, 1fr) 64px;
     gap: 20px;
   }
 }
