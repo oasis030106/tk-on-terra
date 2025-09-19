@@ -1,4 +1,3 @@
-﻿
 .mobile-prompt {
   position: fixed;
   inset: 0;
@@ -14,7 +13,6 @@
 .mobile-prompt.is-active {
   display: flex;
 }
-
 
 .mobile-prompt__dialog {
   width: min(420px, 90vw);

@@ -14,7 +14,11 @@
   --radius-sm: 18px;
   --transition-slow: 420ms cubic-bezier(0.22, 1, 0.36, 1);
   --transition-fast: 180ms ease;
+  --backdrop-image: url('assets/logo1.png');
+  --backdrop-opacity: 0.92;
+  --backdrop-scale: 0.73;
 }
+
 
 * {
   box-sizing: border-box;
@@ -37,9 +41,33 @@ body {
 .global-backdrop {
   position: fixed;
   inset: -20vh -20vw;
-  background: var(--bg-gradient);
-  filter: blur(40px);
+  pointer-events: none;
   z-index: -2;
+}
+
+.global-backdrop::before,
+.global-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-slow);
+}
+
+.global-backdrop::before {
+  background: var(--bg-gradient);
+  filter: blur(80px);
+  opacity: 0.7;
+}
+
+.global-backdrop::after {
+  background-image: var(--backdrop-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(0);
+  opacity: var(--backdrop-opacity);
+  transform: scale(var(--backdrop-scale, 1));
 }
 
 body.has-custom-cursor,
