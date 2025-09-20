@@ -444,7 +444,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   height: 100%;
   padding: clamp(12px, 2vw, 28px);
   background: rgba(7, 10, 24, 0.4);
-  border-radius: 24px;
+  border-radius: 0;
 }
 
 .modal__stage img {
@@ -454,7 +454,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  border-radius: 14px;
+  border-radius: 0;
   box-shadow: 0 24px 60px rgba(8, 12, 30, 0.45);
 }
 
