@@ -331,10 +331,9 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
 
 .modal__content {
   position: relative;
-  max-width: min(1200px, 94vw);
+  max-width: min(75rem, 94vw);
   width: 100%;
-  height: min(96vh, 960px);
-  max-height: 96vh;
+  height: min(60rem, 95vh);
   padding: clamp(32px, 4vw, 48px);
   border-radius: var(--radius-lg);
   background: linear-gradient(155deg, rgba(26, 26, 38, 0.85), rgba(5, 7, 19, 0.94));
@@ -635,7 +634,7 @@ body.theme-light .modal__thumbnails img.is-active {
   opacity: 1;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 68.75em) {
   .layout {
     grid-template-columns: 1fr;
   }
@@ -652,7 +651,7 @@ body.theme-light .modal__thumbnails img.is-active {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 45em) {
   .hero {
     padding-top: 68px;
   }
