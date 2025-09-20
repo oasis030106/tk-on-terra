@@ -442,8 +442,8 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   min-height: 0;
   width: 100%;
   height: 100%;
-  padding: clamp(12px, 2vw, 28px);
-  background: rgba(7, 10, 24, 0.4);
+  padding: 0;
+  background: transparent;
   border-radius: 0;
 }
 
@@ -455,7 +455,7 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   max-height: 100%;
   object-fit: contain;
   border-radius: 0;
-  box-shadow: 0 24px 60px rgba(8, 12, 30, 0.45);
+  box-shadow: none;
 }
 
 .modal__page-indicator {
@@ -478,10 +478,14 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   gap: 12px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-right: 6px;
+  padding: 6px 10px 20px;
   flex-shrink: 0;
   max-height: 100%;
   align-items: center;
+  scroll-padding-top: 6px;
+  scroll-padding-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(118, 138, 178, 0.55) rgba(255, 255, 255, 0.05);
 }
 
 .modal__thumbnails img {
@@ -494,6 +498,24 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   cursor: pointer;
   opacity: 0.65;
   transition: transform var(--transition-fast), opacity var(--transition-fast), border-color var(--transition-fast);
+}
+
+.modal__thumbnails::-webkit-scrollbar {
+  width: 9px;
+}
+
+.modal__thumbnails::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+}
+
+.modal__thumbnails::-webkit-scrollbar-thumb {
+  background: rgba(118, 138, 178, 0.55);
+  border-radius: 999px;
+}
+
+.modal__thumbnails::-webkit-scrollbar-thumb:hover {
+  background: rgba(118, 138, 178, 0.75);
 }
 
 .modal__thumbnails img:hover,
@@ -562,11 +584,11 @@ body.theme-light .modal__subtitle {
 }
 
 body.theme-light .modal__stage {
-  background: rgba(244, 246, 252, 0.82);
+  background: transparent;
 }
 
 body.theme-light .modal__stage img {
-  box-shadow: 0 20px 48px rgba(16, 23, 42, 0.2);
+  box-shadow: none;
 }
 
 body.theme-light .modal__page-indicator {
@@ -586,6 +608,18 @@ body.theme-light .modal__nav:hover {
 body.theme-light .modal__close {
   background: rgba(26, 30, 40, 0.12);
   color: var(--text-primary);
+}
+
+body.theme-light .modal__thumbnails {
+  scrollbar-color: rgba(118, 138, 178, 0.6) rgba(12, 16, 32, 0.12);
+}
+
+body.theme-light .modal__thumbnails::-webkit-scrollbar-track {
+  background: rgba(12, 16, 32, 0.12);
+}
+
+body.theme-light .modal__thumbnails::-webkit-scrollbar-thumb {
+  background: rgba(118, 138, 178, 0.55);
 }
 
 body.theme-light .modal__thumbnails img {
