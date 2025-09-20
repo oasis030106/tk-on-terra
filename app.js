@@ -488,6 +488,24 @@ modalPrev.addEventListener("click", showPreviousPage);
 
 modalNext.addEventListener("click", showNextPage);
 
+modalImage.addEventListener("click", (event) => {
+  if (!modal.classList.contains("is-active")) {
+    return;
+  }
+  if (event.button !== 0 || event.defaultPrevented) {
+    return;
+  }
+  const src = modalImage.getAttribute("src");
+  if (!src) {
+    return;
+  }
+  event.preventDefault();
+  const newWindow = window.open(src, "_blank", "noopener");
+  if (newWindow) {
+    newWindow.focus();
+  }
+});
+
 modalClose.addEventListener("click", closeModal);
 modalBackdrop.addEventListener("click", closeModal);
 
