@@ -12,6 +12,7 @@ const modalPageIndicator = document.getElementById("modalPageIndicator");
 const modalPrev = document.getElementById("modalPrev");
 const modalNext = document.getElementById("modalNext");
 const modalThumbnails = document.getElementById("modalThumbnails");
+const modalViewer = document.querySelector(".modal__viewer");
 
 const template = document.getElementById("galleryCardTemplate");
 
@@ -466,16 +467,26 @@ function renderThumbnails(manga, activeIndex) {
   });
 }
 
-modalPrev.addEventListener("click", () => {
+function showPreviousPage() {
+  if (!viewerState.list.length) {
+    return;
+  }
   viewerState.pageIndex = Math.max(viewerState.pageIndex - 1, 0);
   updateModal();
-});
+}
 
-modalNext.addEventListener("click", () => {
+function showNextPage() {
   const manga = viewerState.list[viewerState.mangaIndex];
+  if (!manga) {
+    return;
+  }
   viewerState.pageIndex = Math.min(viewerState.pageIndex + 1, manga.pages.length - 1);
   updateModal();
-});
+}
+
+modalPrev.addEventListener("click", showPreviousPage);
+
+modalNext.addEventListener("click", showNextPage);
 
 modalClose.addEventListener("click", closeModal);
 modalBackdrop.addEventListener("click", closeModal);
@@ -486,12 +497,41 @@ window.addEventListener("keydown", (event) => {
     closeModal();
   }
   if (event.key === "ArrowRight") {
-    modalNext.click();
+    showNextPage();
   }
   if (event.key === "ArrowLeft") {
-    modalPrev.click();
+    showPreviousPage();
   }
 });
+
+if (modalViewer) {
+  let wheelNavigationLocked = false;
+  const WHEEL_NAVIGATION_COOLDOWN = 220;
+
+  modalViewer.addEventListener("wheel", (event) => {
+    if (!modal.classList.contains("is-active")) {
+      return;
+    }
+    if (Math.abs(event.deltaY) < Math.abs(event.deltaX)) {
+      return;
+    }
+    event.preventDefault();
+    if (wheelNavigationLocked) {
+      return;
+    }
+
+    if (event.deltaY > 0) {
+      showNextPage();
+    } else if (event.deltaY < 0) {
+      showPreviousPage();
+    }
+
+    wheelNavigationLocked = true;
+    window.setTimeout(() => {
+      wheelNavigationLocked = false;
+    }, WHEEL_NAVIGATION_COOLDOWN);
+  }, { passive: false });
+}
 
 loadGallery();
 const mobilePromptState = {
