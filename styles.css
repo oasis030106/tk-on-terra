@@ -478,12 +478,12 @@ body.has-custom-cursor #customCursor.is-clicked.is-aiming {
   gap: 12px;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 6px 10px 20px;
+  padding: 10px 12px 24px;
   flex-shrink: 0;
   max-height: 100%;
   align-items: center;
-  scroll-padding-top: 6px;
-  scroll-padding-bottom: 20px;
+  scroll-padding-top: 12px;
+  scroll-padding-bottom: 28px;
   scrollbar-width: thin;
   scrollbar-color: rgba(118, 138, 178, 0.55) rgba(255, 255, 255, 0.05);
 }
